@@ -352,13 +352,7 @@ openPayment.onclick = ()=>{
     orderReview.style.display="block";
 
     // MOSTRAR BOTÃO FINAL
-    completePurchase.style.display = "block";
-
-    orderReview.scrollIntoView({behavior:"smooth"});
-
-  },3000);
-}
-const colorCheckoutURLs = {
+   const colorCheckoutURLs = {
   "Black":       "https://app.quorapay.online/pay/0474ce64-e312-43a4-8145-a2984a17cc72",
   "Cream":       "https://app.quorapay.online/pay/ffa4dfea-23c5-4a42-8343-cd18c722c59e",
   "Pastel Blue": "https://app.quorapay.online/pay/3eba0a91-1374-45e1-b20d-96db5459a2c3",
@@ -367,8 +361,16 @@ const colorCheckoutURLs = {
 };
 
 completePurchase.onclick = () => {
-  const url = colorCheckoutURLs[selectedColor] || colorCheckoutURLs["Black"];
-  window.location.href = url;
+  const checkoutUrl = colorCheckoutURLs[selectedColor] || colorCheckoutURLs["Black"];
+
+  // Captura todos os parâmetros da URL atual (UTMs, fbclid, etc.)
+  const params = window.location.search;
+
+  if (params) {
+    window.location.href = checkoutUrl + params;
+  } else {
+    window.location.href = checkoutUrl;
+  }
 };
 </script>
 
